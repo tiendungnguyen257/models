@@ -179,47 +179,47 @@ class TfExampleDecoder(data_decoder.DataDecoder):
     del use_display_name
     self.keys_to_features = {
         'image/encoded':
-            tf.FixedLenFeature((), tf.string, default_value=''),
+            tf.io.FixedLenFeature((), tf.string, default_value=''),
         'image/format':
-            tf.FixedLenFeature((), tf.string, default_value='jpeg'),
+            tf.io.FixedLenFeature((), tf.string, default_value='jpeg'),
         'image/filename':
-            tf.FixedLenFeature((), tf.string, default_value=''),
+            tf.io.FixedLenFeature((), tf.string, default_value=''),
         'image/key/sha256':
-            tf.FixedLenFeature((), tf.string, default_value=''),
+            tf.io.FixedLenFeature((), tf.string, default_value=''),
         'image/source_id':
-            tf.FixedLenFeature((), tf.string, default_value=''),
+            tf.io.FixedLenFeature((), tf.string, default_value=''),
         'image/height':
-            tf.FixedLenFeature((), tf.int64, default_value=1),
+            tf.io.FixedLenFeature((), tf.int64, default_value=1),
         'image/width':
-            tf.FixedLenFeature((), tf.int64, default_value=1),
+            tf.io.FixedLenFeature((), tf.int64, default_value=1),
         # Image-level labels.
         'image/class/text':
-            tf.VarLenFeature(tf.string),
+            tf.io.VarLenFeature(tf.string),
         'image/class/label':
-            tf.VarLenFeature(tf.int64),
+            tf.io.VarLenFeature(tf.int64),
         # Object boxes and classes.
         'image/object/bbox/xmin':
-            tf.VarLenFeature(tf.float32),
+            tf.io.VarLenFeature(tf.float32),
         'image/object/bbox/xmax':
-            tf.VarLenFeature(tf.float32),
+            tf.io.VarLenFeature(tf.float32),
         'image/object/bbox/ymin':
-            tf.VarLenFeature(tf.float32),
+            tf.io.VarLenFeature(tf.float32),
         'image/object/bbox/ymax':
-            tf.VarLenFeature(tf.float32),
+            tf.io.VarLenFeature(tf.float32),
         'image/object/class/label':
-            tf.VarLenFeature(tf.int64),
+            tf.io.VarLenFeature(tf.int64),
         'image/object/class/text':
-            tf.VarLenFeature(tf.string),
+            tf.io.VarLenFeature(tf.string),
         'image/object/area':
-            tf.VarLenFeature(tf.float32),
+            tf.io.VarLenFeature(tf.float32),
         'image/object/is_crowd':
-            tf.VarLenFeature(tf.int64),
+            tf.io.VarLenFeature(tf.int64),
         'image/object/difficult':
-            tf.VarLenFeature(tf.int64),
+            tf.io.VarLenFeature(tf.int64),
         'image/object/group_of':
-            tf.VarLenFeature(tf.int64),
+            tf.io.VarLenFeature(tf.int64),
         'image/object/weight':
-            tf.VarLenFeature(tf.float32),
+            tf.io.VarLenFeature(tf.float32),
 
     }
     # We are checking `dct_method` instead of passing it directly in order to
