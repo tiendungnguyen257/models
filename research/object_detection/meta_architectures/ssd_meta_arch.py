@@ -1160,19 +1160,19 @@ class SSDMetaArch(model.DetectionModel):
             tf.stack([match.num_ignored_columns() for match in match_list]),
             dtype=tf.float32))
 
-    tf.summary.scalar('AvgNumGroundtruthBoxesPerImage',
+    tf.compat.v1.summary.scalar('AvgNumGroundtruthBoxesPerImage',
                       avg_num_gt_boxes,
                       family='TargetAssignment')
-    tf.summary.scalar('AvgNumGroundtruthBoxesMatchedPerImage',
+    tf.compat.v1.summary.scalar('AvgNumGroundtruthBoxesMatchedPerImage',
                       avg_num_matched_gt_boxes,
                       family='TargetAssignment')
-    tf.summary.scalar('AvgNumPositiveAnchorsPerImage',
+    tf.compat.v1.summary.scalar('AvgNumPositiveAnchorsPerImage',
                       avg_pos_anchors,
                       family='TargetAssignment')
-    tf.summary.scalar('AvgNumNegativeAnchorsPerImage',
+    tf.compat.v1.summary.scalar('AvgNumNegativeAnchorsPerImage',
                       avg_neg_anchors,
                       family='TargetAssignment')
-    tf.summary.scalar('AvgNumIgnoredAnchorsPerImage',
+    tf.compat.v1.summary.scalar('AvgNumIgnoredAnchorsPerImage',
                       avg_ignored_anchors,
                       family='TargetAssignment')
 
@@ -1272,7 +1272,7 @@ class SSDMetaArch(model.DetectionModel):
       A list of regularization loss tensors.
     """
     losses = []
-    slim_losses = tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES)
+    slim_losses = tf.compat.v1.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES)
     # Copy the slim losses to avoid modifying the collection
     if slim_losses:
       losses.extend(slim_losses)
