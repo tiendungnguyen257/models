@@ -155,7 +155,7 @@ def build(input_reader_config, batch_size=None, transform_input_data_fn=None):
     dataset = data_map_fn(process_fn, num_parallel_calls=num_parallel_calls)
     if batch_size:
       dataset = dataset.apply(
-          tf.contrib.data.batch_and_drop_remainder(batch_size))
+          tf.data.Dataset.batch(batch_size))
     dataset = dataset.prefetch(input_reader_config.num_prefetch_batches)
     return dataset
 
