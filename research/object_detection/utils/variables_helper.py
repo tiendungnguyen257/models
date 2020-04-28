@@ -136,7 +136,7 @@ def get_variables_available_in_checkpoint(variables,
     variable_names_map = variables
   else:
     raise ValueError('`variables` is expected to be a list or dict.')
-  ckpt_reader = tf.train.NewCheckpointReader(checkpoint_path)
+  ckpt_reader = tf.compat.v1.train.NewCheckpointReader(checkpoint_path)
   ckpt_vars_to_shape_map = ckpt_reader.get_variable_to_shape_map()
   if not include_global_step:
     ckpt_vars_to_shape_map.pop(tf.GraphKeys.GLOBAL_STEP, None)
@@ -176,4 +176,4 @@ def get_global_variables_safely():
       raise ValueError("Global variables collection is not tracked when "
                        "executing eagerly. Use a Keras model's `.variables` "
                        "attribute instead.")
-  return tf.global_variables()
+  return tf.compat.v1.global_variables()
