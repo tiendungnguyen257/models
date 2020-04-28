@@ -1041,7 +1041,7 @@ class EvalMetricOpsVisualization(six.with_metaclass(abc.ABCMeta, object)):
       """Returns image summaries for non-padded elements."""
       return tf.cond(
           tf.equal(tf.size(tf.shape(image)), 4),
-          lambda: tf.summary.image(summary_name, image),
+          lambda: tf.compat.v1.summary.image(summary_name, image),
           lambda: tf.constant(''))
 
     if tf.executing_eagerly():
