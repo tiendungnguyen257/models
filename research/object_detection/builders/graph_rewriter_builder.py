@@ -33,7 +33,7 @@ def build(graph_rewriter_config, is_training):
     # Quantize the graph by inserting quantize ops for weights and activations
     if is_training:
       tf.contrib.quantize.experimental_create_training_graph(
-          input_graph=tf.get_default_graph(),
+          input_graph=tf.compat.v1.get_default_graph(),
           quant_delay=graph_rewriter_config.quantization.delay
       )
     else:
