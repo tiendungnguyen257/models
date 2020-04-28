@@ -377,7 +377,7 @@ def create_model_fn(detection_model_fn, configs, hparams, use_tpu=False,
 
       # TODO(rathodv): Stop creating optimizer summary vars in EVAL mode once we
       # can write learning rate summaries on TPU without host calls.
-      global_step = tf.train.get_or_create_global_step()
+      global_step = tf.compat.v1.train.get_or_create_global_step()
       training_optimizer, optimizer_summary_vars = optimizer_builder.build(
           train_config.optimizer)
 
@@ -395,7 +395,7 @@ def create_model_fn(detection_model_fn, configs, hparams, use_tpu=False,
           train_config.freeze_variables
           if train_config.freeze_variables else None)
       trainable_variables = tf.contrib.framework.filter_variables(
-          tf.trainable_variables(),
+          tf.compat.v1.trainable_variables(),
           include_patterns=include_variables,
           exclude_patterns=exclude_variables)
 
@@ -512,12 +512,12 @@ def create_model_fn(detection_model_fn, configs, hparams, use_tpu=False,
       if scaffold is None:
         keep_checkpoint_every_n_hours = (
             train_config.keep_checkpoint_every_n_hours)
-        saver = tf.train.Saver(
+        saver = tf.compat.v1.train.Saver(
             sharded=True,
             keep_checkpoint_every_n_hours=keep_checkpoint_every_n_hours,
             save_relative_paths=True)
-        tf.add_to_collection(tf.GraphKeys.SAVERS, saver)
-        scaffold = tf.train.Scaffold(saver=saver)
+        tf.compat.v1.add_to_collection(tf.GraphKeys.SAVERS, saver)
+        scaffold = tf.compat.v1.train.Scaffold(saver=saver)
       return tf.estimator.EstimatorSpec(
           mode=mode,
           predictions=detections,
