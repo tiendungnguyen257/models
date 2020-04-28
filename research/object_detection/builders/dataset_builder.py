@@ -61,7 +61,7 @@ def read_dataset(file_read_func, input_files, config):
     RuntimeError: If no files are found at the supplied path(s).
   """
   # Shard, shuffle, and read files.
-  filenames = tf.gfile.Glob(input_files)
+  filenames = tf.io.gfile.glob(input_files)
   if not filenames:
     raise RuntimeError('Did not find any input files matching the glob pattern '
                        '{}'.format(input_files))
