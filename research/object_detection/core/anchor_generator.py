@@ -168,4 +168,4 @@ class AnchorGenerator(six.with_metaclass(ABCMeta, object)):
                                * feature_map_shape[0]
                                * feature_map_shape[1])
       actual_num_anchors += anchors.num_boxes()
-    return tf.assert_equal(expected_num_anchors, actual_num_anchors)
+    return tf.compat.v1.assert_equal(expected_num_anchors, actual_num_anchors)
