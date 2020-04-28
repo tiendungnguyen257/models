@@ -627,8 +627,8 @@ class HardExampleMiner(object):
           tf.cast(self._num_positives_list, dtype=tf.float32))
       avg_num_negatives = tf.reduce_mean(
           tf.cast(self._num_negatives_list, dtype=tf.float32))
-      tf.summary.scalar('HardExampleMiner/NumPositives', avg_num_positives)
-      tf.summary.scalar('HardExampleMiner/NumNegatives', avg_num_negatives)
+      tf.compat.v1.summary.scalar('HardExampleMiner/NumPositives', avg_num_positives)
+      tf.compat.v1.summary.scalar('HardExampleMiner/NumNegatives', avg_num_negatives)
 
   def _subsample_selection_to_desired_neg_pos_ratio(self,
                                                     indices,
