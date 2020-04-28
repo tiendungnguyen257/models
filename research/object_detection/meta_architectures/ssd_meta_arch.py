@@ -586,7 +586,7 @@ class SSDMetaArch(model.DetectionModel):
     if self._inplace_batchnorm_update:
       batchnorm_updates_collections = None
     else:
-      batchnorm_updates_collections = tf.GraphKeys.UPDATE_OPS
+      batchnorm_updates_collections = tf.compat.v1.GraphKeys.UPDATE_OPS
     if self._feature_extractor.is_keras_model:
       feature_maps = self._feature_extractor(preprocessed_inputs)
     else:
@@ -594,7 +594,7 @@ class SSDMetaArch(model.DetectionModel):
                           is_training=(self._is_training and
                                        not self._freeze_batchnorm),
                           updates_collections=batchnorm_updates_collections):
-        with tf.variable_scope(None, self._extract_features_scope,
+        with tf.compat.v1.variable_scope(None, self._extract_features_scope,
                                [preprocessed_inputs]):
           feature_maps = self._feature_extractor.extract_features(
               preprocessed_inputs)
