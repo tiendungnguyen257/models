@@ -320,7 +320,7 @@ def assert_shape_equal(shape_a, shape_b):
       raise ValueError('Unequal shapes {}, {}'.format(shape_a, shape_b))
     else: return tf.no_op()
   else:
-    return tf.assert_equal(shape_a, shape_b)
+    return tf.compat.v1.assert_equal(shape_a, shape_b)
 
 
 def assert_shape_equal_along_first_dimension(shape_a, shape_b):
@@ -337,7 +337,7 @@ def assert_shape_equal_along_first_dimension(shape_a, shape_b):
     shape_b: a list containing shape of the second tensor.
 
   Returns:
-    Either a tf.no_op() when shapes are all static and a tf.assert_equal() op
+    Either a tf.no_op() when shapes are all static and a tf.compat.v1.assert_equal() op
     when the shapes are dynamic.
 
   Raises:
@@ -349,7 +349,7 @@ def assert_shape_equal_along_first_dimension(shape_a, shape_b):
           shape_a[0], shape_b[0]))
     else: return tf.no_op()
   else:
-    return tf.assert_equal(shape_a[0], shape_b[0])
+    return tf.compat.v1.assert_equal(shape_a[0], shape_b[0])
 
 
 def assert_box_normalized(boxes, maximum_normalized_coordinate=1.1):
@@ -456,7 +456,7 @@ def expand_first_dimension(inputs, dims):
   expanded_shape = tf.stack(dims + inputs_shape[1:])
 
   # Verify that it is possible to expand the first axis of inputs.
-  assert_op = tf.assert_equal(
+  assert_op = tf.compat.v1.assert_equal(
       inputs_shape[0], tf.reduce_prod(tf.stack(dims)),
       message=('First dimension of `inputs` cannot be expanded into provided '
                '`dims`'))
