@@ -44,7 +44,7 @@ def build_optimizers_tf_v1(optimizer_config, global_step=None):
     learning_rate = _create_learning_rate(config.learning_rate,
                                           global_step=global_step)
     summary_vars.append(learning_rate)
-    optimizer = tf.train.RMSPropOptimizer(
+    optimizer = tf.compat.v1.train.RMSPropOptimizer(
         learning_rate,
         decay=config.decay,
         momentum=config.momentum_optimizer_value,
