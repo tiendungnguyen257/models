@@ -485,7 +485,7 @@ def merge_external_params_with_configs(configs, hparams=None, kwargs_dict=None):
   if hparams:
     kwargs_dict.update(hparams.values())
   for key, value in kwargs_dict.items():
-    tf.logging.info("Maybe overwriting %s: %s", key, value)
+    tf.compat.v1.logging.info("Maybe overwriting %s: %s", key, value)
     # pylint: disable=g-explicit-bool-comparison
     if value == "" or value is None:
       continue
