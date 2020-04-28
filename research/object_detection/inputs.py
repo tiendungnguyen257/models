@@ -165,8 +165,8 @@ def transform_input_data(tensor_dict,
 
   im_box = tf.stack([
       0.0, 0.0,
-      tf.to_float(new_height) / tf.to_float(true_image_shape[0, 0]),
-      tf.to_float(new_width) / tf.to_float(true_image_shape[0, 1])
+      tf.cast(new_height) / tf.cast(true_image_shape[0, 0]),
+      tf.cast(new_width) / tf.cast(true_image_shape[0, 1])
   ])
 
   if fields.InputDataFields.groundtruth_boxes in tensor_dict:
