@@ -425,7 +425,8 @@ def retain_groundtruth_with_positive_classes(tensor_dict):
   """
   if fields.InputDataFields.groundtruth_classes not in tensor_dict:
     raise ValueError('`groundtruth classes` not in tensor_dict.')
-  keep_indices = tf.where(tf.greater(
+  #keep_indices = tf.where(tf.greater(
+  keep_indices = np.where(tf.greater(
       tensor_dict[fields.InputDataFields.groundtruth_classes], 0))
   return retain_groundtruth(tensor_dict, keep_indices)
 
@@ -439,7 +440,8 @@ def replace_nan_groundtruth_label_scores_with_ones(label_scores):
   Returns:
     a tensor where NaN label scores have been replaced by ones.
   """
-  return tf.where(
+  #return tf.where(
+  return np.where(
       tf.is_nan(label_scores), tf.ones(tf.shape(label_scores)), label_scores)
 
 
@@ -464,7 +466,8 @@ def filter_groundtruth_with_crowd_boxes(tensor_dict):
   if fields.InputDataFields.groundtruth_is_crowd in tensor_dict:
     is_crowd = tensor_dict[fields.InputDataFields.groundtruth_is_crowd]
     is_not_crowd = tf.logical_not(is_crowd)
-    is_not_crowd_indices = tf.where(is_not_crowd)
+    #is_not_crowd_indices = tf.where(is_not_crowd)
+    is_not_crowd_indices = np.where(is_not_crowd)
     tensor_dict = retain_groundtruth(tensor_dict, is_not_crowd_indices)
   return tensor_dict
 
@@ -520,7 +523,8 @@ def filter_unrecognized_classes(tensor_dict):
     raise ValueError('`groundtruth classes` not in tensor_dict.')
   # Refer to tf_example_decoder for how unrecognized labels are handled.
   unrecognized_label = -1
-  recognized_indices = tf.where(
+  #recognized_indices = tf.where(
+  recognized_indices = np.where(
       tf.greater(tensor_dict[fields.InputDataFields.groundtruth_classes],
                  unrecognized_label))
 
