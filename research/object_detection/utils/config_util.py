@@ -495,7 +495,7 @@ def merge_external_params_with_configs(configs, hparams=None, kwargs_dict=None):
     elif _is_generic_key(key):
       _update_generic(configs, key, value)
     else:
-      tf.logging.info("Ignoring config override key: %s", key)
+      tf.compat.v1.logging.info("Ignoring config override key: %s", key)
   return configs
 
 
