@@ -174,13 +174,13 @@ class WeightedSmoothL1LocalizationLoss(Loss):
       loss: a float tensor of shape [batch_size, num_anchors] tensor
         representing the value of the loss function.
     """
-    return tf.reduce_sum(tf.losses.huber_loss(
+    return tf.reduce_sum(tf.compat.v1.losses.huber_loss(
         target_tensor,
         prediction_tensor,
         delta=self._delta,
         weights=tf.expand_dims(weights, axis=2),
         loss_collection=None,
-        reduction=tf.losses.Reduction.NONE
+        reduction=tf.compat.v1.losses.Reduction.NONE
     ), axis=2)
 
 
