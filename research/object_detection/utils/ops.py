@@ -25,6 +25,7 @@ import six
 from six.moves import range
 from six.moves import zip
 import tensorflow as tf
+import numpy as np
 
 from object_detection.core import standard_fields as fields
 from object_detection.utils import shape_utils
@@ -490,7 +491,8 @@ def filter_groundtruth_with_nan_box_coordinates(tensor_dict):
   nan_indicator_vector = tf.greater(tf.reduce_sum(tf.cast(
       tf.is_nan(groundtruth_boxes), dtype=tf.int32), reduction_indices=[1]), 0)
   valid_indicator_vector = tf.logical_not(nan_indicator_vector)
-  valid_indices = tf.where(valid_indicator_vector)
+  #valid_indices = tf.where(valid_indicator_vector)
+  valid_indices = np.where(valid_indicator_vector)
 
   return retain_groundtruth(tensor_dict, valid_indices)
 
