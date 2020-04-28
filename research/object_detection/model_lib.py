@@ -625,7 +625,7 @@ def create_estimator_and_inputs(run_config,
     })
   if override_eval_num_epochs:
     kwargs.update({'eval_num_epochs': 1})
-    tf.logging.warning(
+    tf.compat.v1.logging.warning(
         'Forced number of epochs for all eval validations to be 1.')
   configs = merge_external_params_with_configs(
       configs, hparams, kwargs_dict=kwargs)
