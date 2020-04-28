@@ -638,7 +638,7 @@ def create_estimator_and_inputs(run_config,
   eval_on_train_input_config.sample_1_of_n_examples = (
       sample_1_of_n_eval_on_train_examples)
   if override_eval_num_epochs and eval_on_train_input_config.num_epochs != 1:
-    tf.logging.warning('Expected number of evaluation epochs is 1, but '
+    tf.compat.v1.logging.warning('Expected number of evaluation epochs is 1, but '
                        'instead encountered `eval_on_train_input_config'
                        '.num_epochs` = '
                        '{}. Overwriting `num_epochs` to 1.'.format(
@@ -676,7 +676,7 @@ def create_estimator_and_inputs(run_config,
   # Read export_to_tpu from hparams if not passed.
   if export_to_tpu is None:
     export_to_tpu = hparams.get('export_to_tpu', False)
-  tf.logging.info('create_estimator_and_inputs: use_tpu %s, export_to_tpu %s',
+  tf.compat.v1.logging.info('create_estimator_and_inputs: use_tpu %s, export_to_tpu %s',
                   use_tpu, export_to_tpu)
   model_fn = model_fn_creator(detection_model_fn, configs, hparams, use_tpu,
                               postprocess_on_cpu)
@@ -782,28 +782,28 @@ def continuous_eval(estimator, model_dir, input_fn, train_steps, name):
   """
 
   def terminate_eval():
-    tf.logging.info('Terminating eval after 180 seconds of no checkpoints')
+    tf.compat.v1.logging.info('Terminating eval after 180 seconds of no checkpoints')
     return True
 
   for ckpt in tf.contrib.training.checkpoints_iterator(
       model_dir, min_interval_secs=180, timeout=None,
       timeout_fn=terminate_eval):
 
-    tf.logging.info('Starting Evaluation.')
+    tf.compat.v1.logging.info('Starting Evaluation.')
     try:
       eval_results = estimator.evaluate(
           input_fn=input_fn, steps=None, checkpoint_path=ckpt, name=name)
-      tf.logging.info('Eval results: %s' % eval_results)
+      tf.compat.v1.logging.info('Eval results: %s' % eval_results)
 
       # Terminate eval job when final checkpoint is reached
       current_step = int(os.path.basename(ckpt).split('-')[1])
       if current_step >= train_steps:
-        tf.logging.info(
+        tf.compat.v1.logging.info(
             'Evaluation finished after training step %d' % current_step)
         break
 
     except tf.errors.NotFoundError:
-      tf.logging.info(
+      tf.compat.v1.logging.info(
           'Checkpoint %s no longer exists, skipping checkpoint' % ckpt)
 
 
@@ -843,7 +843,7 @@ def populate_experiment(run_config,
     An `Experiment` that defines all aspects of training, evaluation, and
     export.
   """
-  tf.logging.warning('Experiment is being deprecated. Please use '
+  tf.compat.v1.logging.warning('Experiment is being deprecated. Please use '
                      'tf.estimator.train_and_evaluate(). See model_main.py for '
                      'an example.')
   train_and_eval_dict = create_estimator_and_inputs(
