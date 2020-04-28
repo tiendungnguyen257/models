@@ -27,7 +27,7 @@ def build_optimizers_tf_v1(optimizer_config, global_step=None):
   Args:
     optimizer_config: A Optimizer proto message.
     global_step: A variable representing the current step.
-      If None, defaults to tf.train.get_or_create_global_step()
+      If None, defaults to tf.compat.v1.train.get_or_create_global_step()
 
   Returns:
     An optimizer and a list of variables for summary.
@@ -83,7 +83,7 @@ def build_optimizers_tf_v2(optimizer_config, global_step=None):
   Args:
     optimizer_config: A Optimizer proto message.
     global_step: A variable representing the current step.
-      If None, defaults to tf.train.get_or_create_global_step()
+      If None, defaults to tf.compat.v1.train.get_or_create_global_step()
 
   Returns:
     An optimizer and a list of variables for summary.
@@ -145,7 +145,7 @@ def _create_learning_rate(learning_rate_config, global_step=None):
   Args:
     learning_rate_config: A LearningRate proto message.
     global_step: A variable representing the current step.
-      If None, defaults to tf.train.get_or_create_global_step()
+      If None, defaults to tf.compat.v1.train.get_or_create_global_step()
 
   Returns:
     A learning rate.
@@ -154,7 +154,7 @@ def _create_learning_rate(learning_rate_config, global_step=None):
     ValueError: when using an unsupported input data type.
   """
   if global_step is None:
-    global_step = tf.train.get_or_create_global_step()
+    global_step = tf.compat.v1.train.get_or_create_global_step()
   learning_rate = None
   learning_rate_type = learning_rate_config.WhichOneof('learning_rate')
   if learning_rate_type == 'constant_learning_rate':
