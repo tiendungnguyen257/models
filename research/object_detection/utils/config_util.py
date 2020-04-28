@@ -186,7 +186,7 @@ def save_pipeline_config(pipeline_config, directory):
   pipeline_config_path = os.path.join(directory, "pipeline.config")
   config_text = text_format.MessageToString(pipeline_config)
   with tf.gfile.Open(pipeline_config_path, "wb") as f:
-    tf.logging.info("Writing pipeline config file to %s",
+    tf.compat.v1.logging.info("Writing pipeline config file to %s",
                     pipeline_config_path)
     f.write(config_text)
 
