@@ -481,7 +481,7 @@ def create_model_fn(detection_model_fn, configs, hparams, use_tpu=False,
       eval_metric_ops = eval_util.get_eval_metric_ops_for_evaluators(
           eval_config, list(category_index.values()), eval_dict)
       for loss_key, loss_tensor in iter(losses_dict.items()):
-        eval_metric_ops[loss_key] = tf.metrics.mean(loss_tensor)
+        eval_metric_ops[loss_key] = tf.compat.v1.metrics.mean(loss_tensor)
       for var in optimizer_summary_vars:
         eval_metric_ops[var.op.name] = (var, tf.no_op())
       if vis_metric_ops is not None:
