@@ -149,7 +149,7 @@ def build(input_reader_config, batch_size=None, transform_input_data_fn=None):
       num_parallel_calls = input_reader_config.num_parallel_map_calls
     # TODO(b/123952794): Migrate to V2 function.
     if hasattr(dataset, 'map_with_legacy_function'):
-      data_map_fn = dataset.map_with_legacy_function
+      data_map_fn = tf.data.Dataset.map()
     else:
       data_map_fn = dataset.map
     dataset = data_map_fn(process_fn, num_parallel_calls=num_parallel_calls)
