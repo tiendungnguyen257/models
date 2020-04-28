@@ -344,13 +344,13 @@ def create_model_fn(detection_model_fn, configs, hparams, use_tpu=False,
         if use_tpu:
 
           def tpu_scaffold():
-            tf.train.init_from_checkpoint(train_config.fine_tune_checkpoint,
+            tf.compat.v1.train.init_from_checkpoint(train_config.fine_tune_checkpoint,
                                           available_var_map)
             return tf.train.Scaffold()
 
           scaffold_fn = tpu_scaffold
         else:
-          tf.train.init_from_checkpoint(train_config.fine_tune_checkpoint,
+          tf.compat.v1.train.init_from_checkpoint(train_config.fine_tune_checkpoint,
                                         available_var_map)
 
     if mode in (tf.estimator.ModeKeys.TRAIN, tf.estimator.ModeKeys.EVAL):
